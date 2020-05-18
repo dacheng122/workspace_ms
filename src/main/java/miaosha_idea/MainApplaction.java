@@ -10,8 +10,8 @@ import java.util.Map;
 public class MainApplaction {
 
     public static void main(String[] args) {
+        //启动类
         SpringApplication.run(MainApplaction.class,args);
-
 
     }
 
