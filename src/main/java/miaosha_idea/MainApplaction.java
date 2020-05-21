@@ -10,7 +10,7 @@ import java.util.Map;
 public class MainApplaction {
 
     public static void main(String[] args) {
-        //启动类1
+        //启动类2
         SpringApplication.run(MainApplaction.class,args);
 
     }
