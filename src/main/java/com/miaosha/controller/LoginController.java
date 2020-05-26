@@ -31,10 +31,15 @@ public class LoginController {
     public String toLogin() {
         return "login";
     }
-    
+
+    @RequestMapping("/login_test")
+    @ResponseBody
+    public Result<Boolean> login(){
+        return Result.success(true);
+    }
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<Boolean> doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
+    public Result<Boolean> doLogin(HttpServletResponse response,  LoginVo loginVo) {
     	log.info(loginVo.toString());
     	//登录
     	userService.login(response, loginVo);

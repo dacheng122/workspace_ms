@@ -16,6 +16,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.miaosha.domain.MiaoshaUser;
 import com.miaosha.service.MiaoshaUserService;
 
+/**
+ * 自定义用户参数解析器
+ */
 @Service
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -23,8 +26,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 	MiaoshaUserService userService;
 	
 	public boolean supportsParameter(MethodParameter parameter) {
-		Class<?> clazz = parameter.getParameterType();
-		return clazz==MiaoshaUser.class;
+		Class<?> clazz = parameter.getParameterType();// //获取参数的类型
+		return clazz==MiaoshaUser.class;//如果为真，才会执行下面的resolveArguement方法
 	}
 
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
@@ -40,7 +43,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 		String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
 		return userService.getByToken(response, token);
 	}
-
+    //判断请求里的cookie和cookiName是否一致，一致的话就返回cookie值
 	private String getCookieValue(HttpServletRequest request, String cookiName) {
 		Cookie[]  cookies = request.getCookies();
 		for(Cookie cookie : cookies) {
