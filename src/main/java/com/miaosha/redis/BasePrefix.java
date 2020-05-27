@@ -9,7 +9,6 @@ package com.miaosha.redis;
 public abstract class BasePrefix implements KeyPrefix{
 	
 	private int expireSeconds;
-	
 	private String prefix;
 	
 	public BasePrefix(String prefix) {//0代表永不过期
