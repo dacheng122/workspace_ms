@@ -32,20 +32,20 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);//先拿到request和response
 		HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
 		
-		String paramToken = request.getParameter(MiaoshaUserService.COOKI_NAME_TOKEN);
+		String paramToken = request.getParameter(MiaoshaUserService.COOKI_NAME_TOKEN);//再拿到paramToken和cookieToken
 		String cookieToken = getCookieValue(request, MiaoshaUserService.COOKI_NAME_TOKEN);
 		if(StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
 			return null;
 		}
-		String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
+		String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;//paramToken优先使用
 		return userService.getByToken(response, token);
 	}
     //判断请求里的cookie和cookiName是否一致，一致的话就返回cookie值
 	private String getCookieValue(HttpServletRequest request, String cookiName) {
-		Cookie[]  cookies = request.getCookies();
+		Cookie[]  cookies = request.getCookies();//获取所有的cookie
 		for(Cookie cookie : cookies) {
 			if(cookie.getName().equals(cookiName)) {
 				return cookie.getValue();
